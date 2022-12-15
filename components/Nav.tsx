@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BsFillMoonFill, BsSunFill } from 'react-icons/bs';
 
-const Container = styled.div<{ themeColor: string | false | null }>`
+const Container = styled.div`
   width: 935px;
   min-height: 65px;
   display: flex;
@@ -11,7 +11,6 @@ const Container = styled.div<{ themeColor: string | false | null }>`
   justify-content: space-between;
   position: fixed;
   border-bottom: 1px solid lightgray;
-  background-color: ${({ themeColor }) => (themeColor === 'dark' ? '#222' : 'white')};
   z-index: 10;
 `;
 
@@ -36,14 +35,14 @@ const ThemeButton = styled.button`
   margin-right: 30px;
   cursor: pointer;
 
+  &:hover {
+    background-color: #ededed;
+  }
+
   > svg {
     color: black;
     width: 20px;
     height: 20px;
-
-    &:hover {
-      opacity: 0.6;
-    }
   }
 `;
 
@@ -68,7 +67,7 @@ function Nav({ theme, setTheme }: NavProps) {
   }, [setLoaded]);
 
   return (
-    <Container themeColor={theme}>
+    <Container className="navTheme">
       <LinkList>
         <li>
           <Link href="/">Home</Link>

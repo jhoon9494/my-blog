@@ -24,6 +24,10 @@ const GlobalStyle = createGlobalStyle<{ themeColor: string | false | null }>`
     text-decoration: none;
   }
 
+  .navTheme {
+    background-color: ${({ themeColor }) => (themeColor === 'dark' ? '#222' : 'white')};
+  }
+
 `;
 
 export default GlobalStyle;
