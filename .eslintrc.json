@@ -31,7 +31,8 @@
         "ts": "never",
         "tsx": "never"
       }
-    ]
+    ],
+    "react/no-danger": 0
   },
   "settings": {
     "import/resolver": {
