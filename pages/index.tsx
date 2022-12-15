@@ -50,6 +50,8 @@ const Container = styled.div`
   flex-direction: column;
   padding: 10px 30px;
   margin: 0 20px;
+  position: relative;
+  top: 65px;
 `;
 
 const PostWrapper = styled.div`
