@@ -5,7 +5,7 @@ import { BsFillMoonFill, BsSunFill } from 'react-icons/bs';
 
 const Container = styled.div`
   width: 100%;
-  height: 65px;
+  min-height: 65px;
   display: flex;
   align-items: center;
   justify-content: space-between;
