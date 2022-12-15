@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import fs from 'fs';
 import matter from 'gray-matter';
 import Link from 'next/link';
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import Head from 'next/head';
+import compareDate from '../utils/sortFn';
 
 type PostType = {
   fileName: string;
@@ -13,27 +14,18 @@ type PostType = {
   description: string;
 };
 
-const compareDate = (a: PostType, b: PostType) => {
-  const ADate = new Date(a.date);
-  const BDate = new Date(b.date);
-  if (ADate > BDate) return -1;
-  return 1;
-};
-
-export const getServerSideProps: GetServerSideProps<{ posts: PostType[] }> = async () => {
+export const getStaticProps: GetStaticProps<{ posts: PostType[] }> = async () => {
   const fileList = fs.readdirSync('./_post');
-
-  const posts: PostType[] = [];
-  fileList.forEach((file) => {
+  const posts: PostType[] = fileList.map((file) => {
     const fileName = file.split('.')[0];
     const metaData = matter(fs.readFileSync(`./_post/${file}`, 'utf8')).data;
-    posts.push({
+    return {
       fileName,
       date: metaData.date,
       categories: metaData.categories,
       title: metaData.title,
       description: metaData.description,
-    });
+    };
   });
 
   // 최신 게시글 순으로 정렬
@@ -111,11 +103,11 @@ const MoreButton = styled(Link)`
   }
 `;
 
-export default function Home({ posts }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function Home({ posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <Container>
       <Head>
-        <title>훈최의 개발블로그</title>
+        <title>My Blog</title>
         <meta name="description" content="Next로 직접 만드는 개발 블로그" />
       </Head>
       <h1>최신 포스트</h1>

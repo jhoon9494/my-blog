@@ -2,31 +2,43 @@ import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import fs from 'fs';
 import matter from 'gray-matter';
 import styled from 'styled-components';
-import { KeyboardEvent, useRef, useState } from 'react';
+import { KeyboardEvent, useState } from 'react';
 import Link from 'next/link';
+import compareDate from '../../utils/sortFn';
+
+type PostType = {
+  fileName: string;
+  date: string;
+  categories: string[];
+  title: string;
+  description: string;
+};
 
 type DataType = {
   categories: { [key: string]: number };
-  metaDataList: {
-    metaData: {
-      [key: string]: any;
-    };
-    fileName: string;
-  }[];
+  posts: PostType[];
 };
 
 export const getStaticProps: GetStaticProps<DataType> = async () => {
   const fileList = fs.readdirSync('./_post');
-  const metaDataList = fileList.map((file) => {
+
+  const posts: PostType[] = fileList.map((file) => {
     const fileName = file.split('.')[0];
     const metaData = matter(fs.readFileSync(`./_post/${file}`, 'utf8')).data;
-    return { metaData, fileName };
+    return {
+      fileName,
+      date: metaData.date,
+      categories: metaData.categories,
+      title: metaData.title,
+      description: metaData.description,
+    };
   });
 
+  posts.sort(compareDate);
   const categories: { [key: string]: number } = {};
 
-  metaDataList.forEach(({ metaData }) => {
-    const category = metaData.categories[0];
+  posts.forEach((post) => {
+    const category = post.categories[0];
     if (!Object.keys(categories).includes(category)) {
       categories[category] = 1;
     } else {
@@ -37,7 +49,7 @@ export const getStaticProps: GetStaticProps<DataType> = async () => {
   return {
     props: {
       categories,
-      metaDataList,
+      posts,
     },
   };
 };
@@ -116,35 +128,37 @@ const PostWrapper = styled.div`
   }
 `;
 
-export default function Posts({ categories, metaDataList }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const [posts, setPosts] = useState(metaDataList);
+export default function Posts({ categories, posts }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const [postsData, setPostsData] = useState(posts);
   const [search, setSearch] = useState('');
 
   const handleSearch = (e: KeyboardEvent) => {
     if (e.code === 'Enter') {
       if (search !== '') {
         const searchData = posts.filter((data) => {
-          return data.metaData.title.includes(search);
+          return data.title.includes(search);
         });
-        setPosts(searchData);
+        searchData.sort(compareDate);
+        setPostsData(searchData);
         setSearch('');
       } else {
-        setPosts(metaDataList);
+        setPostsData(posts);
         setSearch('');
       }
     }
   };
 
   const handleTotalList = () => {
-    setPosts(metaDataList);
+    setPostsData(posts);
     setSearch('');
   };
 
   const handleCategoryList = (category: string) => {
-    const selectedData = metaDataList.filter((data) => {
-      return data.metaData.categories[0].includes(category);
+    const selectedData = posts.filter((data) => {
+      return data.categories[0].includes(category);
     });
-    setPosts(selectedData);
+    selectedData.sort(compareDate);
+    setPostsData(selectedData);
     setSearch('');
   };
 
@@ -173,14 +187,14 @@ export default function Posts({ categories, metaDataList }: InferGetStaticPropsT
         onChange={(e) => setSearch(e.target.value)}
         onKeyDown={handleSearch}
       />
-      {posts.map((post, idx) => {
+      {postsData.map((post, idx) => {
         return (
           <PostWrapper key={`${idx + 1}-post`}>
             <Link href={`/posts/${post.fileName}`}>
-              <p className="categories">{post.metaData.categories[0]}</p>
-              <h2>{post.metaData.title}</h2>
-              <p>{post.metaData.description}</p>
-              <p className="date">{post.metaData.date}</p>
+              <p className="categories">{post.categories[0]}</p>
+              <h2>{post.title}</h2>
+              <p>{post.description}</p>
+              <p className="date">{post.date}</p>
             </Link>
           </PostWrapper>
         );
