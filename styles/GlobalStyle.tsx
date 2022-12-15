@@ -24,6 +24,13 @@ const GlobalStyle = createGlobalStyle<{ themeColor: string | false | null }>`
     text-decoration: none;
   }
 
+  button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
   .navTheme {
     background-color: ${({ themeColor }) => (themeColor === 'dark' ? '#222' : 'white')};
   }

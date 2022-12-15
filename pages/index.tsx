@@ -52,9 +52,14 @@ const Container = styled.div`
   margin: 0 20px;
   position: relative;
   top: 65px;
+
+  > h1 {
+    min-width: 350px;
+  }
 `;
 
 const PostWrapper = styled.div`
+  min-width: 350px;
   display: flex;
   flex-direction: column;
   padding: 30px 0;

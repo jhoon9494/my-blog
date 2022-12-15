@@ -4,12 +4,16 @@ import styled from 'styled-components';
 import { BsFillMoonFill, BsSunFill } from 'react-icons/bs';
 
 const Container = styled.div`
-  width: 935px;
+  max-width: 935px;
   min-height: 65px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 0 auto;
   position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   border-bottom: 1px solid lightgray;
   z-index: 10;
 `;
