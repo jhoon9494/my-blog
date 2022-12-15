@@ -3,12 +3,16 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BsFillMoonFill, BsSunFill } from 'react-icons/bs';
 
-const Container = styled.div`
-  width: 100%;
+const Container = styled.div<{ themeColor: string | false | null }>`
+  width: 935px;
   min-height: 65px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: fixed;
+  border-bottom: 1px solid lightgray;
+  background-color: ${({ themeColor }) => (themeColor === 'dark' ? '#222' : 'white')};
+  z-index: 10;
 `;
 
 const LinkList = styled.ul`
@@ -64,7 +68,7 @@ function Nav({ theme, setTheme }: NavProps) {
   }, [setLoaded]);
 
   return (
-    <Container>
+    <Container themeColor={theme}>
       <LinkList>
         <li>
           <Link href="/">Home</Link>
