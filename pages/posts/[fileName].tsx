@@ -5,6 +5,7 @@ import { unified } from 'unified';
 import remarkParse from 'remark-parse';
 import remark2rehype from 'remark-rehype';
 import rehypeStringify from 'rehype-stringify';
+import rehypeHighlight from 'rehype-highlight';
 import Head from 'next/head';
 import styled from 'styled-components';
 
@@ -30,6 +31,7 @@ export const getStaticProps: GetStaticProps<{ post: PostType }> = async (ctx) =>
   const html = unified()
     .use(remarkParse) // markdown을 구문 트리로 변환
     .use(remark2rehype) // markdown을 html로 변환
+    .use(rehypeHighlight)
     .use(rehypeStringify) // 텍스트 형태로 변환
     .processSync(postData.content)
     .toString();
@@ -41,7 +43,7 @@ export const getStaticProps: GetStaticProps<{ post: PostType }> = async (ctx) =>
   };
 };
 
-const Container = styled.div`
+const Container = styled.main`
   padding: 10px 30px 40px;
   margin: 0 20px;
   position: relative;
@@ -49,9 +51,10 @@ const Container = styled.div`
 
   /* 코드 부분 */
   pre {
-    border: 1px solid lightgray;
+    border: 1px solid gray;
     border-radius: 5px;
-    padding: 10px;
+    padding: 20px 10px;
+    margin: 20px 0;
   }
 
   img {
@@ -59,9 +62,59 @@ const Container = styled.div`
     margin: 0 auto;
     width: 600px;
   }
+
+  li {
+    margin: 5px 0;
+    list-style: square;
+
+    > code {
+      font-weight: bold;
+      color: #556e90;
+    }
+  }
+
+  p {
+    line-height: 30px;
+    padding-left: 15px;
+
+    > code {
+      font-weight: bold;
+      color: #556e90;
+    }
+  }
+
+  a {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 3px 10px;
+    border-radius: 8px;
+    background-color: #d3d3d39e;
+    color: #556e90;
+  }
+
+  /* code style */
+  .hljs-keyword {
+    color: #af2daf;
+  }
+
+  .hljs-number {
+    color: #4d4de4;
+  }
+
+  .hljs-comment {
+    color: gray;
+  }
+
+  .hljs-tag {
+    color: #70d1f1;
+
+    .hljs-name {
+      color: #ff8f3a;
+    }
+  }
 `;
 
-const Title = styled.div`
+const Title = styled.header`
   padding-bottom: 20px;
 
   h1 {
@@ -84,11 +137,13 @@ export default function Post({ post }: InferGetStaticPropsType<typeof getStaticP
         <title>{post.metaData.title}</title>
         <meta name="description" content={post.metaData.description} />
       </Head>
-      <Title>
-        <h1>{post.metaData.title}</h1>
-        <p>{post.metaData.date}</p>
-      </Title>
-      <div dangerouslySetInnerHTML={createMarkup()} />
+      <article>
+        <Title>
+          <h1>{post.metaData.title}</h1>
+          <p>{post.metaData.date}</p>
+        </Title>
+        <div dangerouslySetInnerHTML={createMarkup()} />
+      </article>
     </Container>
   );
 }
