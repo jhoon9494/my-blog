@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { BsFillMoonFill, BsSunFill } from 'react-icons/bs';
 
-const Container = styled.div`
+const Container = styled.header`
   max-width: 935px;
   min-height: 65px;
   display: flex;

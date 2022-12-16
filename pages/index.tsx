@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps<{ posts: PostType[] }> = async () =>
   };
 };
 
-const Container = styled.div`
+const Container = styled.main`
   display: flex;
   flex-direction: column;
   padding: 10px 30px;
