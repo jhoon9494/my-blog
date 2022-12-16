@@ -2,7 +2,7 @@ import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import fs from 'fs';
 import matter from 'gray-matter';
 import styled from 'styled-components';
-import { KeyboardEvent, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Link from 'next/link';
 import compareDate from '../../utils/sortFn';
 
@@ -54,7 +54,7 @@ export const getStaticProps: GetStaticProps<DataType> = async () => {
   };
 };
 
-const Container = styled.div`
+const Container = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,6 +68,7 @@ const Container = styled.div`
   ul {
     list-style: none;
     display: flex;
+    padding: 0;
     flex-wrap: wrap;
 
     button {
@@ -82,7 +83,7 @@ const Container = styled.div`
 `;
 
 const SearchBar = styled.input`
-  width: 400px;
+  width: 300px;
   height: 35px;
   padding: 5px 20px;
   border: 1px solid gray;
@@ -132,19 +133,19 @@ export default function Posts({ categories, posts }: InferGetStaticPropsType<typ
   const [postsData, setPostsData] = useState(posts);
   const [search, setSearch] = useState('');
 
-  const handleSearch = (e: KeyboardEvent) => {
-    if (e.code === 'Enter') {
-      if (search !== '') {
-        const searchData = posts.filter((data) => {
-          return data.title.includes(search);
-        });
-        searchData.sort(compareDate);
-        setPostsData(searchData);
-        setSearch('');
-      } else {
-        setPostsData(posts);
-        setSearch('');
-      }
+  const handleSearch = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (search !== '') {
+      const searchData = posts.filter((data) => {
+        return data.title.includes(search);
+      });
+      searchData.sort(compareDate);
+      setPostsData(searchData);
+      setSearch('');
+    } else {
+      setPostsData(posts);
+      setSearch('');
     }
   };
 
@@ -180,13 +181,10 @@ export default function Posts({ categories, posts }: InferGetStaticPropsType<typ
           );
         })}
       </ul>
-      <SearchBar
-        type="text"
-        placeholder="검색"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        onKeyDown={handleSearch}
-      />
+      <form onSubmit={(e) => handleSearch(e)}>
+        <SearchBar type="text" placeholder="검색" value={search} onChange={(e) => setSearch(e.target.value)} />
+      </form>
+
       {postsData.map((post, idx) => {
         return (
           <PostWrapper key={`${idx + 1}-post`}>
