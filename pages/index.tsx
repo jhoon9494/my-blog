@@ -51,7 +51,7 @@ const Container = styled.main`
 `;
 
 const PostWrapper = styled.div`
-  min-width: 350px;
+  min-width: 250px;
   display: flex;
   flex-direction: column;
   padding: 30px 0;

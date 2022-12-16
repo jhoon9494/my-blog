@@ -55,6 +55,8 @@ const Container = styled.main`
     border-radius: 5px;
     padding: 20px 10px;
     margin: 20px 0;
+
+    overflow: scroll;
   }
 
   img {

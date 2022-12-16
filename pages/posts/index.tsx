@@ -57,9 +57,6 @@ export const getStaticProps: GetStaticProps<DataType> = async () => {
 const Container = styled.main`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
-  min-width: 350px;
   padding: 10px 30px 40px;
   margin: 0 20px;
   position: relative;
@@ -68,6 +65,7 @@ const Container = styled.main`
   ul {
     list-style: none;
     display: flex;
+    justify-content: center;
     padding: 0;
     flex-wrap: wrap;
 
@@ -79,6 +77,10 @@ const Container = styled.main`
       border-radius: 20px;
       cursor: pointer;
     }
+  }
+
+  form {
+    margin: 0 auto;
   }
 `;
 
@@ -93,7 +95,7 @@ const SearchBar = styled.input`
 const PostWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
+  min-width: 250px;
   padding: 30px 0;
 
   & + & {
