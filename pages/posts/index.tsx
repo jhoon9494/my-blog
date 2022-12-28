@@ -139,7 +139,7 @@ export default function Posts({ categories, posts }: InferGetStaticPropsType<typ
     e.preventDefault();
 
     if (search !== '') {
-      const searchData = posts.filter((data) => {
+      const searchData = postsData.filter((data) => {
         return data.title.includes(search);
       });
       searchData.sort(compareDate);
