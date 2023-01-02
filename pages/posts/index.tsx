@@ -1,7 +1,7 @@
 import { GetStaticProps, InferGetStaticPropsType } from 'next';
 import fs from 'fs';
 import matter from 'gray-matter';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { FormEvent, useState } from 'react';
 import Link from 'next/link';
 import compareDate from '../../utils/sortFn';
@@ -66,22 +66,33 @@ const Container = styled.main`
     list-style: none;
     display: flex;
     justify-content: center;
+    align-items: center;
     padding: 0;
     flex-wrap: wrap;
-
-    button {
-      margin: 7px;
-      border: 1px solid gray;
-      text-align: center;
-      padding: 6px 15px;
-      border-radius: 20px;
-      cursor: pointer;
-    }
   }
 
   form {
     margin: 0 auto;
   }
+`;
+
+const CategoryBtn = styled.button<{ active: boolean }>`
+  margin: 7px;
+  border: 1px solid gray;
+  text-align: center;
+  padding: 6px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+
+  :hover {
+    transform: scale(1.04);
+  }
+  ${({ active }) =>
+    active &&
+    css`
+      border: 3px solid gray;
+      font-weight: bolder;
+    `}
 `;
 
 const SearchBar = styled.input`
@@ -133,35 +144,43 @@ const PostWrapper = styled.div`
 
 export default function Posts({ categories, posts }: InferGetStaticPropsType<typeof getStaticProps>) {
   const [postsData, setPostsData] = useState(posts);
+  const [selectedCategory, setSelectedCategory] = useState<PostType[]>(posts);
+  const [activeTab, setActiveTab] = useState('전체');
   const [search, setSearch] = useState('');
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (search !== '') {
-      const searchData = postsData.filter((data) => {
-        return data.title.includes(search);
+      const searchData = selectedCategory.filter((data) => {
+        return data.title.toUpperCase().includes(search.toUpperCase());
       });
       searchData.sort(compareDate);
       setPostsData(searchData);
       setSearch('');
     } else {
       setPostsData(posts);
+      setSelectedCategory(posts);
       setSearch('');
+      setActiveTab('전체');
     }
   };
 
   const handleTotalList = () => {
+    setActiveTab('전체');
     setPostsData(posts);
+    setSelectedCategory(posts);
     setSearch('');
   };
 
   const handleCategoryList = (category: string) => {
+    setActiveTab(category);
     const selectedData = posts.filter((data) => {
       return data.categories[0].includes(category);
     });
     selectedData.sort(compareDate);
     setPostsData(selectedData);
+    setSelectedCategory(selectedData);
     setSearch('');
   };
 
@@ -169,16 +188,16 @@ export default function Posts({ categories, posts }: InferGetStaticPropsType<typ
     <Container>
       <ul>
         <li>
-          <button type="button" onClick={handleTotalList}>
-            전체({Object.keys(categories).length})
-          </button>
+          <CategoryBtn onClick={handleTotalList} active={activeTab === '전체'}>
+            전체({posts.length})
+          </CategoryBtn>
         </li>
         {Object.entries(categories).map((category, idx) => {
           return (
             <li key={`${idx + 1}-category`}>
-              <button type="button" onClick={() => handleCategoryList(category[0])}>
+              <CategoryBtn onClick={() => handleCategoryList(category[0])} active={activeTab === category[0]}>
                 {category[0]}({category[1]})
-              </button>
+              </CategoryBtn>
             </li>
           );
         })}
