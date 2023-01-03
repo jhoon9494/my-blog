@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import styled, { css } from 'styled-components';
 import { FormEvent, useState } from 'react';
 import Link from 'next/link';
+import Head from 'next/head';
 import compareDate from '../../utils/sortFn';
 
 type PostType = {
@@ -186,6 +187,10 @@ export default function Posts({ categories, posts }: InferGetStaticPropsType<typ
 
   return (
     <Container>
+      <Head>
+        <title>My Posts</title>
+        <meta name="description" content="Post 목록 페이지" />
+      </Head>
       <ul>
         <li>
           <CategoryBtn onClick={handleTotalList} active={activeTab === '전체'}>
