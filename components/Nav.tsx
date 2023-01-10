@@ -79,6 +79,9 @@ function Nav({ theme, setTheme }: NavProps) {
         <li>
           <Link href="/posts">Posts</Link>
         </li>
+        <li>
+          <Link href="/resume">Resume</Link>
+        </li>
       </LinkList>
       <ThemeButton type="button" onClick={handleChangeTheme}>
         {loaded && theme === 'dark' ? <BsFillMoonFill /> : <BsSunFill />}
