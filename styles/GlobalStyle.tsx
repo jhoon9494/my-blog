@@ -29,6 +29,7 @@ const GlobalStyle = createGlobalStyle<{ themeColor: string | false | null }>`
     border: none;
     cursor: pointer;
     font-size: 14px;
+    color: ${({ themeColor }) => (themeColor === 'dark' ? 'white' : 'black')};
   }
 
   .navTheme {

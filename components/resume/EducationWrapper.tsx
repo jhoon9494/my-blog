@@ -28,7 +28,7 @@ const Title = styled.h3<{ isDrop: boolean }>`
 
 const EducationContentWrapper = styled.div<{ isDrop: boolean }>`
   visibility: ${(props) => (props.isDrop ? 'visible' : 'hidden')};
-  max-height: ${(props) => (props.isDrop ? '400px' : '0')};
+  max-height: ${(props) => (props.isDrop ? '500px' : '0')};
   overflow: hidden;
   transition: all ${(props) => (props.isDrop ? '0.6s ease-out' : '0.3s ease-in')};
 
