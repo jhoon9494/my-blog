@@ -184,7 +184,7 @@ function Resume() {
         <Projects>
           <ProjectWrapper
             hoverItem="camping"
-            bgImage={"url('static/camping.png')"}
+            bgImage={"url('static/resume/camping.png')"}
             link="https://github.com/jhoon9494/reservation-app"
             title="캠핑장 예약페이지"
             content={`Node.js와 React를 이용하여 캠핑장을 예약할 수 있는 간단한 웹사이트를 제작하였습니다.
@@ -193,7 +193,7 @@ API를 호출하여 관련 데이터를 전송받고 브라우저에 적절하�
           />
           <ProjectWrapper
             hoverItem="travelMaker"
-            bgImage={"url('static/travelMaker.png')"}
+            bgImage={"url('static/resume/travelMaker.png')"}
             link="https://github.com/jhoon9494/travel_maker"
             title="Travel Maker"
             content="현재 진행중인 프로젝트입니다. 
@@ -205,7 +205,7 @@ API를 호출하여 관련 데이터를 전송받고 브라우저에 적절하�
 
           <ProjectWrapper
             hoverItem="shopping"
-            bgImage={"url('static/shopping.png')"}
+            bgImage={"url('static/resume/shopping.png')"}
             link="https://github.com/jhoon9494/shoppingmall"
             title="쇼핑몰 웹페이지"
             content={`HTML & CSS와 바닐라 Javascript를 이용하여 쇼핑몰의 전반적인 기능을 구현해보았습니다.
@@ -217,7 +217,7 @@ API를 호출하여 관련 데이터를 전송받고 브라우저에 적절하�
         <Projects>
           <ProjectWrapper
             hoverItem="blog"
-            bgImage={"url('static/blog.png')"}
+            bgImage={"url('static/resume/blog.png')"}
             link="https://github.com/jhoon9494/my-blog"
             title="정적 블로그 제작"
             content={`Next.js를 이용하여 Markdown 파일에 작성한 게시글을 정적 페이지로 제작하였습니다.
