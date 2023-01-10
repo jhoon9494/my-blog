@@ -71,12 +71,6 @@ const Container = styled.main`
     margin: 35px 0;
   }
 
-  img {
-    display: block;
-    margin: 0 auto;
-    width: 600px;
-  }
-
   li {
     margin: 5px 0;
     line-height: 27px;
@@ -111,25 +105,16 @@ const Container = styled.main`
   }
 
   img {
-    width: 600px;
-    height: 400px;
+    display: block;
+    margin: 0 auto;
+    width: 70%;
     border-radius: 5px;
     border: 1px solid lightgray;
     box-shadow: 2px 2px 5px gray;
 
     @media screen and (max-width: 768px) {
-      width: 500px;
-      height: 300px;
-    }
-
-    @media screen and (max-width: 615px) {
-      width: 400px;
-      height: 250px;
-    }
-
-    @media screen and (max-width: 515px) {
-      width: 240px;
-      height: 160px;
+      width: 100%;
+      min-width: 270px;
     }
   }
 
