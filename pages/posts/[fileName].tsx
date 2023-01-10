@@ -49,6 +49,10 @@ const Container = styled.main`
   position: relative;
   top: 65px;
 
+  @media screen and (max-width: 500px) {
+    padding: 10px 0px 40px;
+  }
+
   /* 코드 부분 */
   pre {
     border: 1px solid gray;
@@ -75,6 +79,7 @@ const Container = styled.main`
 
   li {
     margin: 5px 0;
+    line-height: 27px;
     list-style: square;
 
     > code {
@@ -85,7 +90,6 @@ const Container = styled.main`
 
   p {
     line-height: 30px;
-    padding: 0 15px;
 
     > code {
       font-weight: bold;

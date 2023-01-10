@@ -75,6 +75,10 @@ const Container = styled.main`
   form {
     margin: 0 auto;
   }
+
+  @media screen and (max-width: 400px) {
+    padding: 10px 0px 40px;
+  }
 `;
 
 const CategoryBtn = styled.button<{ active: boolean }>`

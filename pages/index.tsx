@@ -40,13 +40,17 @@ export const getStaticProps: GetStaticProps<{ posts: PostType[] }> = async () =>
 const Container = styled.main`
   display: flex;
   flex-direction: column;
-  padding: 10px 30px;
+  padding: 10px 30px 40px;
   margin: 0 20px;
   position: relative;
   top: 65px;
 
   > h1 {
     min-width: 350px;
+  }
+
+  @media screen and (max-width: 400px) {
+    padding: 10px 0px 40px;
   }
 `;
 
