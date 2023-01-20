@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
+import Head from 'next/head';
 import Nav from './Nav';
 import GlobalStyle from '../styles/GlobalStyle';
 import useTheme from '../hooks/useTheme';
@@ -41,6 +42,9 @@ function Layout({ children }: { children: ReactNode }) {
     <>
       <GlobalStyle themeColor={theme} />
       <Container>
+        <Head>
+          <meta name="google-site-verification" content="o8wUTeM6TvFSDaq83WiImjNxI94_AxWQNQGfNipDqG4" />
+        </Head>
         <Nav theme={theme} setTheme={setTheme} />
         {children}
         <div className="custom-shape-divider-bottom-1672732415">
