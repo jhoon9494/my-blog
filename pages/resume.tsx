@@ -195,11 +195,9 @@ function Resume() {
             bgImage={"url('static/resume/travelMaker.png')"}
             link="https://github.com/jhoon9494/travel_maker"
             title="Travel Maker"
-            content="현재 진행중인 프로젝트입니다. 
-프로젝트가 마무리 되는대로 신속히 업데이트 하겠습니다!"
-            // React, TypeScript와 Java Spring boot를 이용하여 여행 SNS를 제작하였습니다.
-            // 회원가입, 로그인, 팔로우, 좋아요 등 Instagram의 전반적인 기능들을 클론 코딩하면서, 여행지 추천이라는 주제로 특정 여행지의 추천 꿀팁과 여행지 추천 점수 등을 제공하는 기능을 추가해보았습니다.
-            // TypeScript를 프로젝트에 적용시키면서 TypeScript의 필요성과 기본적인 사용법을 익힐 수 있었습니다.
+            content={`React, TypeScript와 Java Spring boot를 이용하여 여행 SNS를 제작하였습니다.
+회원가입, 로그인, 팔로우, 좋아요 등 Instagram의 전반적인 기능들을 클론 코딩하면서, 여행지 추천이라는 주제로 특정 여행지의 추천 꿀팁과 여행지 추천 점수 등을 제공하는 기능을 추가해보았습니다.
+TypeScript를 프로젝트에 적용시키면서 TypeScript의 필요성과 기본적인 사용법을 익힐 수 있었습니다.`}
           />
 
           <ProjectWrapper
