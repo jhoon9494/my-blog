@@ -1,16 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 export default function useTheme() {
-  const darkTheme = typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)');
-  const [theme, setTheme] = useState(typeof window !== 'undefined' && localStorage.getItem('theme'));
+  const darkTheme = useRef(typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)'));
+  const [theme, setTheme] = useState(() => {
+    if (typeof window !== 'undefined') {
+      const storedTheme = localStorage.getItem('theme');
+      if (storedTheme) {
+        return storedTheme;
+      }
+      return darkTheme.current && darkTheme.current.matches ? 'dark' : 'light';
+    }
+    return 'light';
+  });
 
   useEffect(() => {
-    if (!theme) {
-      setTheme(darkTheme && darkTheme.matches ? 'dark' : 'light');
-    } else {
-      localStorage.setItem('theme', theme);
-    }
-  }, [darkTheme, theme]);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   return { theme, setTheme };
 }

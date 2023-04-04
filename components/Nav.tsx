@@ -52,7 +52,7 @@ const ThemeButton = styled.button`
 
 interface NavProps {
   theme: string | false | null;
-  setTheme: Dispatch<SetStateAction<string | false | null>>;
+  setTheme: Dispatch<SetStateAction<string>>;
 }
 
 function Nav({ theme, setTheme }: NavProps) {
