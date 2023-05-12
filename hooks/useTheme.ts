@@ -1,16 +1,15 @@
+'use client';
+
 import { useState, useEffect, useRef } from 'react';
 
 export default function useTheme() {
-  const darkTheme = useRef(typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)'));
+  const darkTheme = useRef(window.matchMedia('(prefers-color-scheme: dark)'));
   const [theme, setTheme] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const storedTheme = localStorage.getItem('theme');
-      if (storedTheme) {
-        return storedTheme;
-      }
-      return darkTheme.current && darkTheme.current.matches ? 'dark' : 'light';
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      return storedTheme;
     }
-    return 'light';
+    return darkTheme.current && darkTheme.current.matches ? 'dark' : 'light';
   });
 
   useEffect(() => {
