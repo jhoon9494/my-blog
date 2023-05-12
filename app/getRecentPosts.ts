@@ -9,14 +9,14 @@ export type PostType = {
   description: string;
 };
 
-function compareDate(a: PostType, b: PostType) {
+export function compareDate(a: PostType, b: PostType) {
   const ADate = new Date(a.date);
   const BDate = new Date(b.date);
   if (ADate > BDate) return -1;
   return 1;
 }
 
-const getPost = () => {
+const getRecentPosts = () => {
   const fileList = fs.readdirSync('./_post');
   const posts: PostType[] = fileList.map((file) => {
     const fileName = file.split('.')[0];
@@ -39,4 +39,4 @@ const getPost = () => {
   };
 };
 
-export default getPost;
+export default getRecentPosts;

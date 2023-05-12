@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 import Link from 'next/link';
-import { PostType } from './getPost';
+import { PostType } from './getRecentPosts';
 
 const Container = styled.main`
   display: flex;

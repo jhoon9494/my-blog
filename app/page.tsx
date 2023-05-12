@@ -1,9 +1,9 @@
 import RootClient from './client';
-import getPost from './getPost';
+import getRecentPosts from './getRecentPosts';
 
 export default function Page() {
   const {
     props: { posts },
-  } = getPost();
+  } = getRecentPosts();
   return <RootClient posts={posts} />;
 }
