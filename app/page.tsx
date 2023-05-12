@@ -1,5 +1,5 @@
+import { getRecentPosts } from '../lib/utils/getter';
 import RootClient from './client';
-import getRecentPosts from './getRecentPosts';
 
 export default function Page() {
   const {
