@@ -3,9 +3,9 @@
 import { useState, useEffect, useRef } from 'react';
 
 export default function useTheme() {
-  const darkTheme = useRef(window.matchMedia('(prefers-color-scheme: dark)'));
+  const darkTheme = useRef(typeof window === 'object' && window.matchMedia('(prefers-color-scheme: dark)'));
   const [theme, setTheme] = useState(() => {
-    const storedTheme = localStorage.getItem('theme');
+    const storedTheme = typeof window === 'object' && localStorage.getItem('theme');
     if (storedTheme) {
       return storedTheme;
     }
