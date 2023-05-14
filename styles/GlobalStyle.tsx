@@ -1,6 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
-const GlobalStyle = createGlobalStyle<{ themeColor: string | false | null }>`
+const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
     box-sizing: border-box;
   }
@@ -15,8 +15,8 @@ const GlobalStyle = createGlobalStyle<{ themeColor: string | false | null }>`
 
 
   html{
-    color-scheme: ${({ themeColor }) => (themeColor === 'dark' ? 'dark' : 'light')};
-    background-color: ${({ themeColor }) => (themeColor === 'dark' ? '#222' : 'white')};
+    color-scheme: ${({ theme }) => theme.scheme};
+    background-color: ${({ theme }) => theme.color};
   }
   
   a {
@@ -29,11 +29,11 @@ const GlobalStyle = createGlobalStyle<{ themeColor: string | false | null }>`
     border: none;
     cursor: pointer;
     font-size: 14px;
-    color: ${({ themeColor }) => (themeColor === 'dark' ? 'white' : 'black')};
+    color: ${({ theme }) => theme.font};
   }
 
   .navTheme {
-    background-color: ${({ themeColor }) => (themeColor === 'dark' ? '#222' : 'white')};
+    background-color: ${({ theme }) => theme.color};
   }
 
 `;
