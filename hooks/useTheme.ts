@@ -2,10 +2,12 @@
 
 import { useState, useEffect, useRef } from 'react';
 
+const isBrowser = () => typeof window !== 'undefined';
+
 export default function useTheme() {
-  const darkTheme = useRef(typeof window === 'object' && window.matchMedia('(prefers-color-scheme: dark)'));
+  const darkTheme = useRef(isBrowser() && window.matchMedia('(prefers-color-scheme: dark)'));
   const [theme, setTheme] = useState(() => {
-    const storedTheme = typeof window === 'object' && localStorage.getItem('theme');
+    const storedTheme = isBrowser() && localStorage.getItem('theme');
     if (storedTheme) {
       return storedTheme;
     }
